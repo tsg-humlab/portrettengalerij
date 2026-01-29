@@ -1,0 +1,7 @@
+import_data
+import_json_*
+galerij_project/portretten/management/
+.idea
+.venv
+.env
+db.sqlite3
