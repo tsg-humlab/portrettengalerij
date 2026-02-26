@@ -1,6 +1,9 @@
 import_data
 import_json_*
 galerij_project/portretten/management/
+galerij_project/portretten/img/
+.DS_Store
+__pycache__
 .idea
 .venv
 .env

@@ -1,0 +1,60 @@
+{% load custom_tags %}
+
+<script>
+    const myDefaultAllowList = bootstrap.Tooltip.Default.allowList
+    myDefaultAllowList.table = []
+    myDefaultAllowList.caption = []
+    myDefaultAllowList.tbody = []
+    myDefaultAllowList.tr = []
+    myDefaultAllowList.th = []
+    myDefaultAllowList.td = []
+</script>
+
+
+{% load el_pagination_tags %}
+
+{% paginate 24,16 objects %}
+{% for object in objects %}
+    <div class="fancybox">
+        <li><a href="#" data-bs-toggle="modal" data-bs-target="#photoModal"
+               data-bs-photo-url="{{ MEDIA_URL }}{{ object.nummer }}{{ object.jpg }}"
+               data-bs-description="{% get_description object.id %}">
+            <img src="{{ MEDIA_URL }}{{ object.nummer }}{{ object.jpg }}" alt="{{ object.titel }}"
+                 data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="{% get_tooltip object.id %}">
+        </a></li>
+    </div>
+{% endfor %}
+{% show_more %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize tooltips for the initial set of images
+        initializeTooltips();
+    });
+
+    function initializeTooltips() {
+        // Initialize Bootstrap tooltips
+        // $('[data-bs-toggle="tooltip"]').tooltip();
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    }
+</script>
+
+<script>
+    const observer = new MutationObserver(() => {
+        // Reinitialize tooltips after new content is loaded
+        const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        tooltipElements.forEach(el => {
+            const tooltipInstance = bootstrap.Tooltip.getInstance(el);
+            if (tooltipInstance) {
+                tooltipInstance.dispose();
+            }
+        });
+        initializeTooltips();
+    });
+
+    observer.observe(document.getElementById('objects'), {
+        childList: true,
+        subtree: true
+    });
+</script>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Portrettengalerij - Radboud Institute for Culture & History</title>
+
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap_ru.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <style>
+        .nav-link, .navbar-brand {
+            color: #730E04;
+        }
+        .nav-link:hover, .navbar-brand:hover {
+            text-decoration: underline 0.15rem;
+            color: var(--primary);
+        }
+        .nav-item > .nav-link.active, .navbar-brand.active {
+            color: var(--primary);
+        }
+        .nav-item > .nav-link.active {
+            text-decoration: underline 0.15rem;
+        }
+        .nav-item > .nav-link.active:hover {
+            //padding-bottom: 2px;
+            //border-bottom: 0.15rem solid;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        .navbar-toggler {
+            color: var(--light);
+            border-radius: 0;
+        }
+        .nav-pills .nav-link {
+            border-radius: 0;
+        }
+        h4 {
+            color: black;
+        }
+        .page-item:first-child .page-link, .page-item:last-child .page-link {
+            border-radius: 0;
+        }
+    </style>
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+
+<body style="padding-left: 60px; padding-right: 60px;">
+    <nav class="navbar fixed-top navbar-expand-md mb-4 border bg-white">
+        <div class="container-xxl">
+            <a href="https://www.ru.nl" class="d-none d-sm-block">
+                <img src="https://cls.ru.nl/RU_logo.svg" alt="RU logo" class="navbar-brand" style="height: 3rem"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'index' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'portretten:index' %}">
+                            Portrettengalerij</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'objects' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'portretten:objects' %}">
+                            Database</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container-xxl mb-5" style="padding-top:80px;">
+        {% block content %}{% endblock content %}
+    </main>
+    {% block footer %}{% endblock footer %}
+</body>
+</html>

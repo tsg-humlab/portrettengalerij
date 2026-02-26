@@ -1,0 +1,8 @@
+<table>
+    <caption>Toelichting</caption>
+    <tbody>
+        {% for key,value in tooltip.items %}
+            <tr><th scope='row'>{{ key }}</th><td>{{ value }}</td></tr>
+        {% endfor %}
+    </tbody>
+</table>

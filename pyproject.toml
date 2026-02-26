@@ -1,11 +1,14 @@
 [project]
 name = "portrettengalerij"
 version = "0.1.0"
-description = "Add your description here"
+description = "Development project for the Portrettengalerij"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
-    "django>=6.0.1",
+    "django>=5.2.8",
+    "django-bootstrap5>=25.3",
+    "django-el-pagination>=4.1.2",
+    "environs>=14.6.0",
 ]
 
 [dependency-groups]

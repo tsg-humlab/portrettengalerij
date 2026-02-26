@@ -1,0 +1,185 @@
+{% extends 'portretten/base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block extra_head %}
+    <link href="https://cdn.jsdelivr.net/npm/choices.js@9.0.1/public/assets/styles/choices.min.css" rel="stylesheet">
+{% endblock extra_head %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+            <div class="sticky-top" style="top: 80px">
+                <form id="searchForm" action="" method="get">
+                    <div class="d-flex justify-content-between">
+                        <div class="mr-auto">{% if count == 1 %}{{ count }} Resultaat{% else %}{{ count }} Resultaten{% endif %}</div>
+                        <div class="mb-2 float-end btn-group-sm">
+                            <button id="wisknop" type="reset" class="btn btn-secondary btn-sm mt-1 mb-1 text-nowrap">Wis</button>
+                            <button id="zoekknop" type="submit" class="btn btn-secondary btn-sm mt-1 mb-1 text-nowrap">Zoek</button>
+                        </div>
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="ambacht" value="Ambacht en Industrie" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'ambacht' %} selected{% endif %}" onclick="setValueFromButton('filter','ambacht')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="bank" value="Bank- en Verzekeringswezen" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'bank' %} selected{% endif %}" onclick="setValueFromButton('filter','bank')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="bibliotheek" value="Bibliotheek-, Archief- en Museumswezen" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'bibliotheek' %} selected{% endif %}" onclick="setValueFromButton('filter','bibliotheek')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="film" value="Film, Radio en Televisie" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'film' %} selected{% endif %}" onclick="setValueFromButton('filter','film')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="gsw" value="Geesteswetenschappen" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'gsw' %} selected{% endif %}" onclick="setValueFromButton('filter','gsw')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="gezondheid" value="Gezondheidszorg en Diergeneeskundige diensten" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'gezondheid' %} selected{% endif %}" onclick="setValueFromButton('filter','gezondheid')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="handel" value="Handel" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'handel' %} selected{% endif %}" onclick="setValueFromButton('filter','handel')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="kunst" value="Kunst" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'kunst' %} selected{% endif %}" onclick="setValueFromButton('filter','kunst')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="landbouw" value="Land- en Bosbouw" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'landbouw' %} selected{% endif %}" onclick="setValueFromButton('filter','landbouw')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="leger" value="Leger" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'leger' %} selected{% endif %}" onclick="setValueFromButton('filter','leger')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="mijnbouw" value="Mijnbouw" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'mijnbouw' %} selected{% endif %}" onclick="setValueFromButton('filter','mijnbouw')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="natuurwetenschap" value="Natuurwetenschappen" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'natuurwetenschap' %} selected{% endif %}" onclick="setValueFromButton('filter','natuurwetenschap')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="bestuur" value="Openbaar bestuur" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'bestuur' %} selected{% endif %}" onclick="setValueFromButton('filter','bestuur')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="opvoeding" value="Opvoeding, Vorming en Educatie" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'opvoeding' %} selected{% endif %}" onclick="setValueFromButton('filter','opvoeding')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="overige" value="Overige" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'overige' %} selected{% endif %}" onclick="setValueFromButton('filter','overige')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="pers" value="Pers en Publiciteit" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'pers' %} selected{% endif %}" onclick="setValueFromButton('filter','pers')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="politiek" value="Politiek" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'politiek' %} selected{% endif %}" onclick="setValueFromButton('filter','politiek')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="recht" value="Recht en Rechtswetenschap" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'recht' %} selected{% endif %}" onclick="setValueFromButton('filter','recht')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="religie" value="Religie" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'religie' %} selected{% endif %}" onclick="setValueFromButton('filter','religie')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="sociaal" value="Sociaal-economische wetenschappen" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'sociaal' %} selected{% endif %}" onclick="setValueFromButton('filter','sociaal')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="sport" value="Sport" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'sport' %} selected{% endif %}" onclick="setValueFromButton('filter','sport')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="techniek" value="Techniek" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'techniek' %} selected{% endif %}" onclick="setValueFromButton('filter','techniek')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="transport" value="Transport en Posterijen" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'transport' %} selected{% endif %}" onclick="setValueFromButton('filter','transport')">
+                    </div>
+                    <div class="vstack gap-1 border-top">
+                        <input type="button" id="zonder" value="Zonder" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
+                            {% if filter == 'zonder' %} selected{% endif %}" onclick="setValueFromButton('filter','zonder')">
+                    </div>
+                    <input id="filter" name="filter" value="{{ filter }}" type="hidden">
+                </form>
+            </div>
+        </div>
+        <div id="objects" class="col-md-9">
+            <ul id="object_list" class="wrapper no-bullets">
+                {% include page_template %}
+            </ul>
+        </div>
+        <div class="modal fade" id="photoModal" tabindex="-1" aria-labelledby="photoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding: 20px"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class="modal-image" src="">
+                    </div>
+                    <div class="modal-footer">
+                        <div class="description">Description</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="../static/el-pagination/js/el-pagination.js"></script>
+    <script>
+        $('#object_list').endlessPaginate({
+            paginateOnScroll: true,
+            paginateOnScrollMargin: 20,
+            pageSelector: '#object_list',
+        });
+    </script>
+
+    <script>
+       const photoModal = document.getElementById('photoModal')
+        if (photoModal) {
+            photoModal.addEventListener('show.bs.modal', event => {
+                const press = event.relatedTarget;
+                const photoUrl = press.getAttribute('data-bs-photo-url');
+                const photoDescription = press.getAttribute('data-bs-description');
+                const modalBodyImage = photoModal.querySelector('.modal-body img');
+                const modalDescription = photoModal.querySelector('.modal-footer .description');
+
+                modalBodyImage.src = photoUrl;
+                modalDescription.textContent = photoDescription;
+                const descriptionWidth = modalBodyImage.naturalWidth;
+                modalDescription.setAttribute('style','width:'+ descriptionWidth +'px');
+            })
+        }
+    </script>
+
+    <script>
+        document.getElementById('wisknop').addEventListener('click', function() {
+            document.getElementById('filter').value = "";
+            document.getElementById('zoekknop').click();
+        })
+    </script>
+
+    <script>
+        function setValueFromButton(valueType, valueToSelect){
+            let sourceElement = document.getElementById(valueType)
+            sourceElement.value = valueToSelect;
+            document.getElementById('zoekknop').click();
+        }
+    </script>
+{% endblock content %}

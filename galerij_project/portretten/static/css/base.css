@@ -1,0 +1,126 @@
+.vstack {
+    display: flex;
+    flex-direction: column;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 220px;
+    top: 80px;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 150px);
+    grid-auto-rows: 160px;
+    gap: 10px 20px;
+}
+
+.no-bullets {
+    list-style-type: none;
+}
+
+li img {
+    max-height: 140px;
+    max-width: 130px;
+}
+
+#zelfportret {
+    max-width: 60%;
+    padding-top: 70px;
+}
+
+#voorpagina {
+    max-width: 60%;
+}
+
+.modal-dialog {
+    max-width: fit-content;
+    margin: auto;
+    text-align: center;
+}
+
+.modal-image {
+    width: fit-content;
+    padding-bottom: 0px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding: 0px;
+}
+
+.modal-footer {
+    border-top: none;
+    padding-top: 0px;
+}
+
+.no-padding {
+    padding-left:0px
+}
+
+.fancybox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #cccccc;
+}
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    color: #a87a67;
+    min-width: 130px;
+    width: 35%;
+    vertical-align: top;
+}
+
+td {
+    color: #747474;
+    vertical-align: top;
+}
+
+caption {
+    background-color: #1b1b1b;
+    caption-side: top;
+    color: #f7f7f7;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+}
+
+.tooltip-inner {
+    background-color: #e7dbdb;
+    max-width: 400px;
+    font-size: 14px;
+    -moz-box-shadow: 2px 2px 11px #666;
+    -webkit-box-shadow: 2px 2px 11px #666;
+    color: #686667;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.selected {
+    background-color: #e3000b;
+    color: #f7f7f7;
+}
+
+.menu-scroll {
+    overflow-y: scroll;
+    max-height: 300px;
+}
