@@ -9,9 +9,5 @@ dependencies = [
     "django-bootstrap5>=25.3",
     "django-el-pagination>=4.1.2",
     "environs>=14.6.0",
-]
-
-[dependency-groups]
-prod = [
     "gunicorn>=24.1.1",
 ]
