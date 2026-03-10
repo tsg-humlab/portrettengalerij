@@ -18,6 +18,9 @@
                             <button id="zoekknop" type="submit" class="btn btn-secondary btn-sm mt-1 mb-1 text-nowrap">Zoek</button>
                         </div>
                     </div>
+                    <div class="mb-2">
+                        <input id="search" class="form-control form-control-sm" type="text" name="search" value="{{ request.GET.search }}" size="30" placeholder="Zoek op naam, titel, beroep of beschrijving.">
+                    </div>
                     <div class="vstack gap-1 border-top">
                         <input type="button" id="ambacht" value="Ambacht en Industrie" style="font-size: 0.8rem; height: 25px;" class="text-wrap pt-0 btn btn-light first-btn
                             {% if filter == 'ambacht' %} selected{% endif %}" onclick="setValueFromButton('filter','ambacht')">
@@ -170,6 +173,7 @@
 
     <script>
         document.getElementById('wisknop').addEventListener('click', function() {
+            document.getElementById('search').value = "";
             document.getElementById('filter').value = "";
             document.getElementById('zoekknop').click();
         })

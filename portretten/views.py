@@ -1,12 +1,19 @@
+from django.db.models import Q
 from django.shortcuts import render
-from .models import Basisgegevens, Beroep
+from .models import Basisgegevens
 
 def index(request):
     return render(request, 'portretten/index.html')
 
 def objects(request, template='portretten/objects.html', page_template='portretten/object_list.html'):
     objects = Basisgegevens.objects.order_by('nummer')
+    search = request.GET.get('search', '')
     filter = request.GET.get('filter', '')
+
+    if search:
+        objects = objects.filter(
+            Q(persoon__icontains=search) | Q(alt_naam__icontains=search) | Q(kunstenaar__icontains=search) | Q(titel__icontains=search) | Q(
+                beroep_specifiek__icontains=search) | Q(beschrijving__icontains=search))
 
     match filter:
         case "ambacht":

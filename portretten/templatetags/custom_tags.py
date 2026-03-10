@@ -12,9 +12,10 @@ def get_tooltip(object_id):
         'Alternatieve naam': object.alt_naam,
         'Bijnaam': object.bijnaam,
         'Titel': object.titel,
-        'Beroep specifiek': object.beroep_specifiek,
+        'Beroep': object.beroep_specifiek,
         'Geboren': object.geboortedatum,
         'Overleden': object.sterfdatum,
+        'Beschrijving': object.beschrijving,
         'Kunstenaar': object.kunstenaar,
         'Inventarisnummer': object.nummer,
     }
